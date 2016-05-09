@@ -107,7 +107,7 @@ class FroalaHelper extends AppHelper {
 		// remove last comma from lines to avoid the editor breaking in Internet Explorer
 		$lines = rtrim($lines);
 		$lines = rtrim($lines, ',');
-		return $this->Html->scriptBlock('jQuery(function($){ $("' . $selector . '").froalaEditor({' . "\n" . $lines . "\n" . '})'.$remove.' });'."\n", array('toolbarInline' => false));
+		return $this->Html->scriptBlock('jQuery(function($){ $("' . $selector . '").froalaEditor({' . "\n" . $lines . "\n" . '})'.$remove.' $(\'.fr-box div:last\').remove(); });'."\n", array('toolbarInline' => false));
 	}
 
 /**
