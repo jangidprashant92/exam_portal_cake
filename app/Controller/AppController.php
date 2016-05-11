@@ -97,4 +97,41 @@ class AppController extends Controller
 		}
 		die;
 	}
+
+	public function addTempMeta($post_id,$meta,$data)
+	{
+		$this->loadModel('TempSession');
+		$this->request->data['TempSession']['test_id']=$post_id;
+		$this->request->data['TempSession']['meta']=$meta."_".$post_id;
+		$this->request->data['TempSession']['session']=serialize($data);
+
+		$this->TempSession->save($this->request->data);
+
+	}
+
+	public function updateTempMeta($post_id,$meta,$data)
+	{
+		$this->loadModel('TempSession');
+		echo $post_id;
+		echo $meta."_".$post_id;
+		$check_record=$this->TempSession->find('first',array('fields'=>'id','conditions'=>array('TempSession.test_id'=>$post_id,'TempSession.meta LIKE "%'.$meta.'_'.$post_id.'%"')));
+	//	pr($check_record);die;
+		if(count($check_record) != 0){
+			$this->TempSession->id=$check_record['TempSession']['id'];
+			$this->request->data['TempSession']['test_id']=$post_id;
+			$this->request->data['TempSession']['meta']=$meta."_".$post_id;
+			$this->request->data['TempSession']['session']=serialize($data);
+
+			$this->TempSession->save($this->request->data);
+		}else{
+			$this->addTempMeta($post_id,$meta,$data);
+		}
+
+	}
+
+	public function getTempMeta($post_id,$meta)
+	{
+		$this->loadModel('TempSession');
+	return $this->TempSession->find('first',array('conditions'=>array('TempSession.test_id'=>$post_id,'TempSession.meta LIKE "%'.$meta.'_'.$post_id.'%"')));
+	}
 }

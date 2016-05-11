@@ -7,7 +7,7 @@
 			</div>
 			<div class="box-body table-responsive">
 <ul class="list-inline">
-	<?php foreach($subjects as $subject){ ?>
+	<?php  foreach($subjects as $subject){ ?>
 
 	<li <?php echo $sub_id==$subject['Subject']['id'] ? "class='active'" : "class=''";?>><?php echo $subject['Subject']['name']; ?></li>|
 	<?php } ?>

@@ -31,7 +31,7 @@
 					</div><!-- .form-group -->
 
 
-					<?php echo $this->Form->submit('Submit', array('class' => 'btn btn-large btn-primary')); ?>
+					<?php echo $this->Form->submit('Next', array('class' => 'btn btn-large btn-primary')); ?>
 
 				</fieldset>
 

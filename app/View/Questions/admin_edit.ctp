@@ -21,7 +21,7 @@
 
 					<div class="form-group">
 						<?php   echo  $this->Froala->editor('textarea#QuestionDescription', array('imageUploadURL' => $this->webroot."app/editor_image_upload/",'imageUploadMethod'=>'POST','imageUploadParam'=>'image_param','height'=>'200px','remove'=>$this->webroot."app/delete_editor_image"));	?>
-						<?php echo $this->Form->input('description', array('class' => 'form-control')); ?>
+						<?php echo $this->Form->textarea('description', array('class' => 'form-control')); ?>
 					</div><!-- .form-group -->
 					<?php /*<div class="form-group">
 						<?php echo $this->Form->input('multichoice', array('class' => 'form-control')); ?>

@@ -13,7 +13,7 @@
 					<div class="form-group">
 						<?php $n=0; foreach($subjects as $subject){ ?>
 							<label><?php echo $subject['Subject']['name']; ?></label>
-						<?php echo $this->Form->input('no_of_question.', array('class' => 'form-control','name'=>'data[TestSubject]['.$n.'][no_of_question]','type'=>'text','label'=>false)); ?>
+						<?php echo $this->Form->input('no_of_question.', array('class' => 'form-control','name'=>'data[TestSubject]['.$n.'][no_of_question]','type'=>'text','label'=>false,'value'=>$subject['TestSubject']['no_of_question'])); ?>
 						<?php echo $this->Form->hidden('sub_id.', array('class' => 'form-control','name'=>'data[TestSubject]['.$n.'][sub_id]','value'=>$subject['TestSubject']['sub_id'],'type'=>'text','label'=>false)); ?>
 
 						<?php $n++; } ?>
@@ -35,13 +35,3 @@
 </div><!-- /#page-container .row-fluid -->
 	</div>
 
-<link rel="stylesheet" href="<?php echo $this->webroot; ?>/css/jquery-duration-picker.css">
-<link rel="stylesheet" href="<?php echo $this->webroot; ?>/css/jquery-ui.css">
-<script src="<?php echo $this->webroot; ?>/js/jquery-duration-picker.js"></script>
-<script src="<?php echo $this->webroot; ?>/js/jquery-ui.js"></script>
-<script>
-	jQuery(function () {
-		jQuery('#TestDuration').durationPicker();
-		// $('#duration2').durationPicker({ showSeconds: true });
-	});
-</script>
