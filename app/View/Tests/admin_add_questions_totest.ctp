@@ -3,13 +3,13 @@
 	<div class="col-xs-12">
 		<div class="box box-primary">
 			<div class="box-header">
-				<h3 class="box-title"><?php echo __('Add Question'); ?></h3>
+				<h3 class="box-title"><?php echo __('Add Question No. ')." ".$Q_no; ?></h3>
 			</div>
 			<div class="box-body table-responsive">
-<ul class="list-inline">
+<ul class="list-inline testSubjct">
 	<?php  foreach($subjects as $subject){ ?>
 
-	<li <?php echo $sub_id==$subject['Subject']['id'] ? "class='active'" : "class=''";?>><?php echo $subject['Subject']['name']; ?></li>|
+	<li <?php echo $sub_id==$subject['Subject']['id'] ? "class='active'" : "class=''";?>><h4><?php echo $subject['Subject']['name']; ?></h4></li>|
 	<?php } ?>
 </ul>
 				<?php echo $this->Form->create('Question', array('role' => 'form')); ?>
@@ -39,7 +39,7 @@
 						<?php echo $this->Form->input('status', array('class' => 'form-control','options'=>$status_array)); ?>
 					</div><!-- .form-group -->
 
-					<?php echo $this->Form->submit('Submit', array('class' => 'btn btn-large btn-primary')); ?>
+					<?php echo $this->Form->submit('Next', array('class' => 'btn btn-large btn-primary')); ?>
 
 				</fieldset>
 

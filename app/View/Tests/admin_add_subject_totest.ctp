@@ -2,7 +2,7 @@
     <div class="col-xs-12 ">
 		<div class="box box-primary">
 			<div class="box-header">
-			<h3 class="box-title"><?php echo __('Add No. of Question to Test'); ?></h3>
+			<h3 class="box-title"><?php echo __('Add No. of Question to Exam'); ?></h3>
 			</div>
 			<div class="box-body table-responsive">
 		

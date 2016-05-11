@@ -10,6 +10,7 @@
 
     <?php 
       echo $this->Html->css(array(
+        'style.css',
         '/admin_assets/css/bootstrap.min.css',
         '/admin_assets/Admin-lte/AdminLTE.min.css',
         'font-awesome.css',

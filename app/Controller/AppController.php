@@ -112,8 +112,7 @@ class AppController extends Controller
 	public function updateTempMeta($post_id,$meta,$data)
 	{
 		$this->loadModel('TempSession');
-		echo $post_id;
-		echo $meta."_".$post_id;
+
 		$check_record=$this->TempSession->find('first',array('fields'=>'id','conditions'=>array('TempSession.test_id'=>$post_id,'TempSession.meta LIKE "%'.$meta.'_'.$post_id.'%"')));
 	//	pr($check_record);die;
 		if(count($check_record) != 0){

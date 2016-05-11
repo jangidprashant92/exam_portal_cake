@@ -4,9 +4,9 @@
 
     <div class="box box-primary">
 		<div class="box-header">
-			<h3 class="box-title"><?php echo __('Tests'); ?></h3>
+			<h3 class="box-title"><?php echo __('Exams'); ?></h3>
 			<div class="box-tools pull-right">
-                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-plus"></i> New Test'), array('action' => 'add'), array('class' => 'btn btn-primary', 'escape' => false)); ?>
+                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-plus"></i> New Exam'), array('action' => 'add'), array('class' => 'btn btn-primary', 'escape' => false)); ?>
             </div>
 		</div>	
 			<div class="box-body table-responsive">
@@ -22,7 +22,7 @@
 													<th class="text-center"><?php echo $this->Paginator->sort('start_date'); ?></th>
 													<th class="text-center"><?php echo $this->Paginator->sort('end_date'); ?></th>
 													<th class="text-center"><?php echo $this->Paginator->sort('status'); ?></th>
-													
+
 												<th class="text-center"><?php echo __('Actions'); ?></th>
 						</tr>
 					</thead>

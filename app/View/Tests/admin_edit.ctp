@@ -2,7 +2,7 @@
 	<div class="col-xs-12 ">
 		<div class="box box-primary">
 			<div class="box-header">
-				<h3 class="box-title"><?php echo __('Edit Test'); ?></h3>
+				<h3 class="box-title"><?php echo __('Edit Exam'); ?></h3>
 			</div>
 			<div class="box-body table-responsive">
 

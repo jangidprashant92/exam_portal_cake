@@ -17,6 +17,12 @@ class TestsController extends AppController
      */
     public $components = array('Paginator');
 
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->set('title_for_layout', __d('admin', 'Exams'));
+    }
+
     /**
      * index method
      *
@@ -38,7 +44,7 @@ class TestsController extends AppController
     public function admin_view($id = null)
     {
         if (!$this->Test->exists($id)) {
-            throw new NotFoundException(__('Invalid test'));
+            throw new NotFoundException(__('Invalid Exam'));
         }
         $options = array('conditions' => array('Test.' . $this->Test->primaryKey => $id));
         $this->set('test', $this->Test->find('first', $options));
@@ -71,11 +77,11 @@ class TestsController extends AppController
                 }
 
 
-                $this->Session->setFlash(__('The test has been saved'), 'flash/success');
+                $this->Session->setFlash(__('The Exam has been saved'), 'flash/success');
                 $this->Session->write('edit', 0);
                 $this->redirect(array('action' => 'addSubjectTotest/' . $this->Test->id));
             } else {
-                $this->Session->setFlash(__('The test could not be saved. Please, try again.'), 'flash/error');
+                $this->Session->setFlash(__('The Exam could not be saved. Please, try again.'), 'flash/error');
             }
         }
 
@@ -98,7 +104,7 @@ class TestsController extends AppController
 
         $this->Test->id = $id;
         if (!$this->Test->exists($id)) {
-            throw new NotFoundException(__('Invalid test'));
+            throw new NotFoundException(__('Invalid Exam'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -106,18 +112,18 @@ class TestsController extends AppController
             $this->request->data['Test']['end_date'] = date('Y-m-d', strtotime($this->request->data['Test']['end_date']));
 
             if ($this->Test->save($this->request->data)) {
-                $this->Session->setFlash(__('The test has been saved'), 'flash/success');
+                $this->Session->setFlash(__('The Exam has been saved'), 'flash/success');
                 $count = $this->Test->Question->find('count', array('conditions' => array('Question.test_id' => $this->Test->id)));
                 $count_question = $this->TestSubject->getQuestionCount($this->Test->id);
                 if ($count == $count_question) {
-                    $this->Session->setFlash(__('The test has been saved'), 'flash/success');
+                    $this->Session->setFlash(__('The Exam has been saved'), 'flash/success');
                     return $this->redirect(array('action' => 'index'));
                 }
                 $count = $count + 1;
                 $this->Session->write('edit', 1);
                 $this->redirect(array('action' => 'addQuestionsTotest/' . $this->Test->id . "/" . $count));
             } else {
-                $this->Session->setFlash(__('The test could not be saved. Please, try again.'), 'flash/error');
+                $this->Session->setFlash(__('The Exam could not be saved. Please, try again.'), 'flash/error');
             }
         } else {
             $options = array('conditions' => array('Test.' . $this->Test->primaryKey => $id));
@@ -148,13 +154,13 @@ class TestsController extends AppController
         }
         $this->Test->id = $id;
         if (!$this->Test->exists()) {
-            throw new NotFoundException(__('Invalid test'));
+            throw new NotFoundException(__('Invalid Exam'));
         }
         if ($this->Test->delete()) {
-            $this->Session->setFlash(__('Test deleted'), 'flash/success');
+            $this->Session->setFlash(__('Exam deleted'), 'flash/success');
             $this->redirect(array('action' => 'index'));
         }
-        $this->Session->setFlash(__('Test was not deleted'), 'flash/error');
+        $this->Session->setFlash(__('Exam was not deleted'), 'flash/error');
         $this->redirect(array('action' => 'index'));
     }
 
