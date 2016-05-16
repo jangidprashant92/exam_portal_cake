@@ -2,8 +2,11 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box box-primary">
+			<?php echo $this->Form->create('Question', array('role' => 'form')); ?>
+
 			<div class="box-header">
 				<h3 class="box-title"><?php echo __('Add Question No. ')." ".$Q_no; ?></h3>
+				<div class="pull-right"><?php echo $this->Form->input('type', array('class' => 'form-control','label'=>false,'options'=>$question_type_option,'selected'=>$question_type)); ?></div>
 			</div>
 			<div class="box-body table-responsive">
 <ul class="list-inline testSubjct">
@@ -12,7 +15,6 @@
 	<li <?php echo $sub_id==$subject['Subject']['id'] ? "class='active'" : "class=''";?>><h4><?php echo $subject['Subject']['name']; ?></h4></li>|
 	<?php } ?>
 </ul>
-				<?php echo $this->Form->create('Question', array('role' => 'form')); ?>
 
 				<fieldset>
 
@@ -43,12 +45,12 @@
 
 				</fieldset>
 
-				<?php echo $this->Form->end(); ?>
+
 
 			</div><!-- /.form -->
 
 		</div><!-- /#page-content .col-sm-9 -->
-
+		<?php echo $this->Form->end(); ?>
 	</div><!-- /#page-container .row-fluid -->
 </div><!-- /#page-container .row-fluid -->
 <style>
@@ -56,4 +58,10 @@
 </style>
 <script>
 	jQuery("#QuestionAdminAddQuestionsTotestForm").validate({errorElement: "span"});
+	jQuery("#QuestionType").change(function(){
+		if(jQuery(this).val()=='passage')
+		{
+			window.location=App.basePath+"admin/tests/addQuestionsTotest/<?php echo $test_id."/".$Q_no."/passage"; ?>";
+		}
+	});
 </script>

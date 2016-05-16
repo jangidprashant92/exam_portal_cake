@@ -211,7 +211,7 @@ class TestsController extends AppController
         $this->set(compact('subjects', 'test_id'));
     }
 
-    public function admin_addQuestionsTotest($id, $no_q = null)
+    public function admin_addQuestionsTotest($id, $no_q = null,$question_type="")
     {
         $this->helpers[] = 'Froala.Froala';
         $this->loadModel('TestSubject');
@@ -219,6 +219,7 @@ class TestsController extends AppController
         $this->loadModel('QuestionOption');
         $this->loadModel('QuestionAnswer');
         $this->loadModel('TempSession');
+        $this->loadModel('QuestionPassage');
 
         $this->TestSubject->bindModel(array('belongsTo' => array('Subject' => array(
             'className' => 'Subject',
@@ -231,11 +232,25 @@ class TestsController extends AppController
 
         if ($this->request->is('post')) {
 
+
             $test_id = $this->request->data['Question']['test_id'];
             $Q_id = $this->request->data['Question']['Q_no'];
 
 
             if ($this->Question->save($this->request->data)) {
+
+                if(!empty($this->request->data['Question']['passage']))
+                {
+                    $this->request->data['QuestionPassage']['passage']=$this->request->data['Question']['passage'];
+                    $this->request->data['QuestionPassage']['question_id']=$this->Question->id;
+                    $this->QuestionPassage->save($this->request->data['QuestionPassage']);
+                   $this->Session->write('QuestionPssage',$this->request->data['QuestionPassage']['passage']);
+                    $this->request->data['Question']['type']="passage";
+                }else
+                {
+                    $this->Session->delete('QuestionPssage');
+                    $this->request->data['Question']['type']="normal";
+                }
 
                 $i = 1;
                 foreach ($this->request->data['QuestionOption'] as $option) {
@@ -271,7 +286,7 @@ class TestsController extends AppController
 
                 $this->updateTempMeta($test_id, 'remain_steps', $question_session);
                 $Q_id = $Q_id + 1;
-                $this->redirect(array('action' => 'addQuestionsTotest/' . $test_id . "/" . $Q_id));
+                $this->redirect(array('action' => 'addQuestionsTotest/' . $test_id . "/" . $Q_id."/".$question_type));
             } else {
                 $this->Session->setFlash(__('The question could not be saved. Please, try again.'), 'flash/error');
             }
@@ -281,15 +296,23 @@ class TestsController extends AppController
 
 
         $status_array = array('' => '', 'active' => 'Active', 'inactive' => 'Inactive');
+        $question_type_option = array('' => 'Select Question Type', 'normal' => 'Normal', 'passage' => 'passage');
         $test_id = $id;
         $Q_no = $no_q;
         $subArray = $this->getTempMeta($test_id,'remain_steps');
         $sub_seq = $this->question_step_session($test_id,$no_q);
 
         $sub_id = $sub_seq[$no_q-1];
-        $this->set(compact('subjects', 'test_id', 'count_question', 'status_array', 'Q_no', 'sub_id'));
+        $this->set(compact('subjects', 'test_id', 'count_question', 'status_array', 'Q_no', 'sub_id','question_type','question_type_option'));
+        if($question_type=="passage")
+        {
+            $this->render('admin_add_question_totest_passage');
+        }
 
     }
+
+
+
 
     private function question_step_session($test_id,$Q_id=null)
     {
