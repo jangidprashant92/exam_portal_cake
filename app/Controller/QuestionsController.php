@@ -72,6 +72,7 @@ class QuestionsController extends AppController {
 		$this->helpers[]='Froala.Froala';
 		$this->loadModel('QuestionOption');
 		$this->loadModel('QuestionAnswer');
+		$this->loadModel('QuestionPassage');
 		$this->Question->unBindModel(array('belongsTo' => array('Test')));
 
 
@@ -82,6 +83,11 @@ class QuestionsController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Question->save($this->request->data)) {
+				$QuestionPassage = array('conditions' => array('QuestionPassage.question_id' => $this->request->data['Question']['id']));
+				$passage=$this->QuestionPassage->find('first', $QuestionPassage);
+
+					$this->QuestionPassage->id = $passage['QuestionPassage']['id'];
+					$this->QuestionPassage->saveField('passage', $this->request->data['Question']['passage']);
 
 
 
@@ -115,11 +121,13 @@ class QuestionsController extends AppController {
 			$options = array('conditions' => array('Question.' . $this->Question->primaryKey => $id));
 			$this->Question->recursive=2;
 			$this->request->data = $this->Question->find('first', $options);
+
 		}
 		$status_array=array('','active'=>'Active','inactive'=>'Inactive');
-
+		$QuestionPassage = array('conditions' => array('QuestionPassage.question_id' => $id));
+		$passage=$this->QuestionPassage->find('first', $QuestionPassage);
 		$tests = $this->Question->Test->find('list');
-		$this->set(compact('tests','status_array'));
+		$this->set(compact('tests','status_array','passage'));
 		
 	}
 

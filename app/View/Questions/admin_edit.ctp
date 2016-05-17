@@ -18,8 +18,15 @@
 					<div class="form-group">
 						<?php echo $this->Form->hidden('test_id', array('class' => 'form-control')); ?>
 					</div><!-- .form-group -->
-
+					<?php if(count($passage)){?>
 					<div class="form-group">
+						<label>Passage</label>
+						<?php   echo  $this->Froala->editor('textarea#QuestionPassage', array('imageUploadURL' => $this->webroot."app/editor_image_upload/",'imageUploadMethod'=>'POST','imageUploadParam'=>'image_param','height'=>'200px','remove'=>$this->webroot."app/delete_editor_image"));	?>
+						<?php echo $this->Form->textarea('passage', array('class' => 'form-control','style'=>'visibility: hidden !important;display:block !important;','value'=>$passage['QuestionPassage']['passage'],'required')); ?>
+					</div><!-- .form-group -->
+					<?php } ?>
+					<div class="form-group">
+						<label>Question</label>
 						<?php   echo  $this->Froala->editor('textarea#QuestionDescription', array('imageUploadURL' => $this->webroot."app/editor_image_upload/",'imageUploadMethod'=>'POST','imageUploadParam'=>'image_param','height'=>'200px','remove'=>$this->webroot."app/delete_editor_image"));	?>
 						<?php echo $this->Form->textarea('description', array('class' => 'form-control')); ?>
 					</div><!-- .form-group -->
